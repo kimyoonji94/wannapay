@@ -1,112 +1,203 @@
-$color:#ff5629;
-@mixin container{width:610px;padding:0 20px;max-width:100%;margin:0 auto}
-@mixin style{
-    list-style: none;
-    border: 0;
-    box-sizing: border-box;
-    margin: 0;
-    padding:0;
-    text-decoration: none;
-    font-size: 100%;
+$color: #ff5629;
+@mixin container {
+  width: 610px;
+  padding: 0 20px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+@mixin style {
+  list-style: none;
+  border: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  font-size: 100%;
+  font-weight: 400;
+  font: inherit;
+}
+@mixin responsive($w) {
+  @media (max-width: $w) {
+    @content;
+  }
+}
+@mixin font($s, $c, $w) {
+  font-size: $s;
+  color: $c;
+  font-weight: $w;
+}
+@mixin Pret($s, $c, $w) {
+  @font-face {
+    font-family: 'Pretendard';
+    src: url('/public/font/Pretendard-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Pretendard';
+    src: url('/public/font/Pretendard-Regular.woff') format('woff');
     font-weight: 400;
-    font: inherit;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Pretendard';
+    src: url('/public/font/Pretendard-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Pretendard';
+    src: url('font/Pretendard-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+  }
+  font-size: $s;
+  color: $c;
+  font-weight: $w;
+  font-family: 'Pretendard';
 }
-@mixin responsive($w){
-    @media(max-width:$w){@content;}
+@mixin flex($a, $j, $d) {
+  display: flex;
+  align-items: $a;
+  justify-content: $j;
+  flex-direction: $d;
 }
-@mixin font($s,$c,$w){
-    font-size:$s;
-    color:$c;
-    font-weight:$w;
+@mixin height($h) {
+  height: $h;
+  line-height: calc($h - 2px);
 }
-@mixin Pret($s,$c,$w){
-    @font-face {
-        font-family: 'Pretendard';
-        src: url('./font/Pretendard-Light.woff') format('woff');
-        font-weight: 300;
-        font-style: normal;
-    }
-    @font-face {
-        font-family: 'Pretendard';
-        src: url('./font/Pretendard-Regular.woff') format('woff');
-        font-weight: 400;
-        font-style: normal;
-    }
-    @font-face {
-        font-family: 'Pretendard';
-        src: url('./font/Pretendard-Medium.woff') format('woff');
-        font-weight: 500;
-        font-style: normal;
-    }
-    @font-face {
-        font-family: 'Pretendard';
-        src: url('./font/Pretendard-SemiBold.woff') format('woff');
-        font-weight: 600;
-        font-style: normal;
-    }
-    font-size:$s;
-    color:$c;
-    font-weight:$w;
-    font-family: 'Pretendard';      
-}
-@mixin flex($a,$j,$d){
-    display:flex;
-    align-items:$a;
-    justify-content:$j;
-    flex-direction:$d;
-}
-@mixin height($h){height:$h;line-height:calc($h - 2px)}
 /**************************** 공통사항 ****************************/
-html{*{@include style;@include Pret(null,null,null)}}
-body{background:#f5f5f5}
-.container{@include container}
+html {
+  * {
+    @include style;
+    @include Pret(null, null, null);
+  }
+}
+body {
+  background: #f5f5f5;
+}
+.container {
+  @include container;
+}
 /**************************** header ****************************/
-.header_box{
-    .container{margin-top:30px}
-    .lnb_box{
-        .lnb_box{
-            &_top{
-                display:grid;grid-template-columns:12% auto 12%;
-                div{
-                  line-height:60px;background:$color;@include font(12px,#fff,500);
-                  &:nth-child(2){font-size:20px;font-weight:600}
-                }
-            }
-            &_botm{border:1px solid #ececec;border-top:0;
-                display:grid;grid-template-columns: repeat(3,1fr);
-                div{line-height:45px;@include font(13px,null,400);background:#fff;
-                    & + div{border-left:0}
-                }
-            }
+.header_box {
+  .container {
+    margin-top: 30px;
+  }
+  .lnb_box {
+    .lnb_box {
+      &_top {
+        display: grid;
+        grid-template-columns: 12% auto 12%;
+        div {
+          line-height: 60px;
+          background: $color;
+          @include font(12px, #fff, 500);
+          &:nth-child(2) {
+            font-size: 20px;
+            font-weight: 600;
+          }
         }
+      }
+      &_botm {
+        border: 1px solid #ececec;
+        border-top: 0;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        div {
+          line-height: 45px;
+          @include font(13px, null, 400);
+          background: #fff;
+          & + div {
+            border-left: 0;
+          }
+        }
+      }
     }
+  }
 }
 
 /**************************** noti_box  ****************************/
-.mainBox{margin-bottom:30px;
-    .notice_box{text-align:center;padding:20px 0;background:#fff;
-        span{@include font(15px,$color,600);display:block;}
+.mainBox {
+  margin-bottom: 30px;
+  .notice_box {
+    text-align: center;
+    padding: 20px 0;
+    background: #fff;
+    span {
+      @include font(15px, $color, 600);
+      display: block;
     }
-    .pay_cont{margin-top:15px;border-radius:25px;box-shadow:5px 3px 23px rgba(0,0,0,0.1);background:#fff;padding:20px 15px;
-        form{@include flex(null,null,null);flex-wrap:wrap}
-        .pay_box{width:100%;@include flex(start,null,column);
-            &.one_box{width:49%;
-                &:nth-child(2n){margin-left:1.5%}
-            } 
-            & + div{margin-top:10px};
-            label,input,select{width:100%}
-            label{@include font(14px,#666,500);text-align:left;margin-bottom:7px}
-            input,select{border:1px solid #ddd;outline:none;line-height:38px;padding:0 10px;font-size:13px;
-                &::placeholder{font-size:13px}
-            }
-            select{@include height(40px);@include font(12px,#666,400)}
-            .expiry_box{@include flex(start,null,null);width:100%;
-                input{width:49%;
-                    & + input{margin-left:1.5%}
-                }
-            }
-            .reference{margin-top:5px;@include font(12px,red,600)}
+  }
+  .pay_cont {
+    margin-top: 15px;
+    border-radius: 25px;
+    box-shadow: 5px 3px 23px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    padding: 20px 15px;
+    form {
+      @include flex(null, null, null);
+      flex-wrap: wrap;
+    }
+    .pay_box {
+      width: 100%;
+      @include flex(start, null, column);
+      &.one_box {
+        width: 49%;
+        &:nth-child(2n) {
+          margin-left: 1.5%;
         }
-        .pay_Btn{margin-top:20px;width:100%;line-height:42px;border-radius:10px;background:$color;@include font(14px,#fff,500)}
+      }
+      & + div {
+        margin-top: 10px;
+      }
+      label,
+      input,
+      select {
+        width: 100%;
+      }
+      label {
+        @include font(14px, #666, 500);
+        text-align: left;
+        margin-bottom: 7px;
+      }
+      input,
+      select {
+        border: 1px solid #ddd;
+        outline: none;
+        line-height: 38px;
+        padding: 0 10px;
+        font-size: 13px;
+        &::placeholder {
+          font-size: 13px;
+        }
+      }
+      select {
+        @include height(40px);
+        @include font(12px, #666, 400);
+      }
+      .expiry_box {
+        @include flex(start, null, null);
+        width: 100%;
+        input {
+          width: 49%;
+          & + input {
+            margin-left: 1.5%;
+          }
+        }
+      }
+      .reference {
+        margin-top: 5px;
+        @include font(12px, red, 600);
+      }
     }
+    .pay_Btn {
+      margin-top: 20px;
+      width: 100%;
+      line-height: 42px;
+      border-radius: 10px;
+      background: $color;
+      @include font(14px, #fff, 500);
+    }
+  }
 }
