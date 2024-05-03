@@ -1,8 +1,8 @@
 class Metadata {
-  cardAuth;
-  authPw;
-  authDob;
-  constructor(authPw, authDob) {
+  cardAuth: boolean;
+  authPw: string;
+  authDob: string;
+  constructor(authPw: string, authDob: string) {
     this.cardAuth = true;
     this.authPw = authPw;
     this.authDob = authDob;

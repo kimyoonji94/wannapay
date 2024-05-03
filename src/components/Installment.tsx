@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Installment = ({ onChange }) => {
+export const Installment = ({ onChange }: { onChange: any }) => {
   const options = [
     { label: '할부선택', value: 'null' },
     { label: '일시불', value: 0 },
