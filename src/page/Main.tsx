@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import CardRequest from '../model/CardRequest';
 import Metadata from '../model/Metadata';
