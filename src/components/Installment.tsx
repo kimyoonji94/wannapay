@@ -22,7 +22,7 @@ export const Installment = ({ onChange }: { onChange: any }) => {
       <label htmlFor='installment'>할부선택</label>
       <select name='installment' id='installment' onChange={onChange}>
         {options.map((option) => (
-          <option key={option.value} value={option.value}>
+          <option key={option.label} value={option.value}>
             {option.label}
           </option>
         ))}

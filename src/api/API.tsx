@@ -8,7 +8,7 @@ export const paymentPay = async (request: PayRequest) => {
     const response = await axios.post(`${WANNA_PAY_BASE_URL}/pay`);
     return response.data.result;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 
