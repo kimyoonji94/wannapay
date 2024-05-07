@@ -3,12 +3,12 @@ import { Installment } from './Installment';
 import { useState } from 'react';
 
 export const CardInput = ({
-  metaData,
+  metadata,
   onCardChange,
   onMetaChange,
   expiry,
 }: {
-  metaData: any;
+  metadata: any;
   onCardChange: any;
   onMetaChange: any;
   expiry: any;
@@ -85,7 +85,7 @@ export const CardInput = ({
           name='authPw'
           type='text'
           placeholder='카드 비밀번호 앞 2자리'
-          value={metaData.authPw}
+          value={metadata.authPw}
           onChange={onMetaChange}
           minLength={2}
           maxLength={2}
@@ -98,7 +98,7 @@ export const CardInput = ({
           name='authDob'
           type='text'
           onChange={onMetaChange}
-          value={metaData.authDob}
+          value={metadata.authDob}
           minLength={6}
           maxLength={10}
         />

@@ -11,7 +11,7 @@ import { paymentPay } from '../api/API';
 export const Main = () => {
   const [cardData, setCardData] = useState<CardRequest>({ number: '', expiry: '', cvv: '', installment: 0 });
   const [product, setProduct] = useState<Product>({ name: '', price: 0, qty: 1, desc: '' });
-  const [metaData, setMetaData] = useState<Metadata>({ authPw: '', authDob: '', cardAuth: true });
+  const [metadata, setMetadata] = useState<Metadata>({ authPw: '', authDob: '', cardAuth: true });
 
   const [requestData, setRequestData] = useState<PayRequestDetail>({
     payerName: '',
@@ -39,7 +39,7 @@ export const Main = () => {
   };
   const handleMetaData = (event: any) => {
     const { name, value } = event.target;
-    setMetaData((metaData: any) => ({ ...metaData, [name]: value.replace(regex, '') }));
+    setMetadata((metaData: any) => ({ ...metaData, [name]: value.replace(regex, '') }));
   };
   const handleFormData = (event: any) => {
     const { name, value } = event.target;
@@ -86,74 +86,72 @@ export const Main = () => {
         amount: product?.price || 0,
         udf1: '',
         udf2: '',
-        metadata: metaData || ({} as Metadata),
+        metadata: metadata || ({} as Metadata),
       });
-      console.log(request);
-      // const response = await paymentPay(request);
-      // if (response.ok) {
-      //   console.log(response);
-      // }
+      const result = await paymentPay(request);
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <div className='container'>
-      <div className='notice_box'>
-        <span>로또, 주식관련 절대 결제 금지!!</span>
-        <span>무조건 강제취소 됩니다.</span>
-      </div>
-      <div className='pay_cont'>
-        <form onSubmit={pay}>
-          <div className='pay_box'>
-            <label htmlFor='type'>결제타입</label>
-            <input name='' type='' />
-          </div>
-          <div className='pay_box'>
-            <label htmlFor='name'>상품명</label>
-            <input
-              name='name'
-              type='text'
-              value={product?.name}
-              placeholder='상품명을 사업자특성에 맞게 정확히 입력해주세요.'
-              onChange={handleProduct}
+    <div className='mainBox'>
+      <div className='container'>
+        <div className='notice_box'>
+          <span>로또, 주식관련 절대 결제 금지!!</span>
+          <span>무조건 강제취소 됩니다.</span>
+        </div>
+        <div className='pay_cont'>
+          <form onSubmit={pay}>
+            <div className='pay_box'>
+              <label htmlFor='type'>결제타입</label>
+              <input name='' type='' />
+            </div>
+            <div className='pay_box'>
+              <label htmlFor='name'>상품명</label>
+              <input
+                name='name'
+                type='text'
+                value={product?.name}
+                placeholder='상품명을 사업자특성에 맞게 정확히 입력해주세요.'
+                onChange={handleProduct}
+              />
+            </div>
+            <div className='pay_box one_box'>
+              <label htmlFor='price'>결제금액</label>
+              <input name='price' type='text' value={product?.price} placeholder='결제금액' onChange={handleProduct} />
+            </div>
+            <div className='pay_box one_box'>
+              <label htmlFor='payerName'>카드주 성명</label>
+              <input
+                name='payerName'
+                type='text'
+                value={requestData.payerName}
+                placeholder='카드주 성명'
+                onChange={handleFormData}
+              />
+            </div>
+            <div className='pay_box one_box'>
+              <label htmlFor='payerTel'>카드주 전화번호</label>
+              <input
+                name='payerTel'
+                type='text'
+                value={requestData.payerTel}
+                placeholder='번호를 입력하세요'
+                onChange={handleFormData}
+                minLength={10}
+                maxLength={13}
+              />
+            </div>
+            <CardInput
+              metadata={metadata}
+              onCardChange={handleCardData}
+              onMetaChange={handleMetaData}
+              expiry={updateExpiryDate}
             />
-          </div>
-          <div className='pay_box one_box'>
-            <label htmlFor='price'>결제금액</label>
-            <input name='price' type='text' value={product?.price} placeholder='결제금액' onChange={handleProduct} />
-          </div>
-          <div className='pay_box one_box'>
-            <label htmlFor='payerName'>카드주 성명</label>
-            <input
-              name='payerName'
-              type='text'
-              value={requestData.payerName}
-              placeholder='카드주 성명'
-              onChange={handleFormData}
-            />
-          </div>
-          <div className='pay_box one_box'>
-            <label htmlFor='payerTel'>카드주 전화번호</label>
-            <input
-              name='payerTel'
-              type='text'
-              value={requestData.payerTel}
-              placeholder='번호를 입력하세요'
-              onChange={handleFormData}
-              minLength={10}
-              maxLength={13}
-            />
-          </div>
-          <CardInput
-            metaData={metaData}
-            onCardChange={handleCardData}
-            onMetaChange={handleMetaData}
-            expiry={updateExpiryDate}
-          />
-          <button className='pay_Btn'>결제하기</button>
-        </form>
+            <button className='pay_Btn'>결제하기</button>
+          </form>
+        </div>
       </div>
     </div>
   );
